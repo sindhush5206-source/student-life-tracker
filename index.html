@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Study Habit Tracker</title>
+    </head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Study Habit Tracker</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f4f1f8;
+    color:#333;
+    padding:25px;
+}
+
+.container{
+    max-width:1500px;
+    margin:auto;
+}
+
+/* HEADER */
+.header{
+    background:linear-gradient(135deg,#6c8cff,#b78bea);
+    color:white;
+    padding:28px;
+    border-radius:20px;
+    margin-bottom:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
+}
+
+.header h1{
+    font-size:32px;
+    margin-bottom:7px;
+}
+
+.header p{
+    opacity:.9;
+}
+
+.month-box{
+    background:white;
+    color:#555;
+    padding:14px 20px;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+/* TOP CARDS */
+.summary{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-bottom:20px;
+}
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.card h3{
+    color:#777;
+    font-size:14px;
+    margin-bottom:10px;
+}
+
+.big-number{
+    font-size:30px;
+    font-weight:bold;
+    color:#657eea;
+}
+
+.progress-bar{
+    height:10px;
+    background:#eee;
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:12px;
+}
+
+.progress-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#6c8cff,#e77bb8);
+    border-radius:20px;
+}
+
+/* MAIN */
+.section{
+    background:white;
+    padding:20px;
+    border-radius:20px;
+    margin-bottom:20px;
+    box-shadow:0 4px 15px rgba(0,0,0,.07);
+}
+
+.section-title{
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:18px;
+    color:#555;
+}
+
+/* CALENDAR */
+.calendar-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.calendar-head button,
+.add-btn{
+    border:0;
+    background:#6c8cff;
+    color:white;
+    padding:10px 18px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.calendar-head button:hover,
+.add-btn:hover{
+    background:#566fd9;
+}
+
+.calendar-title{
+    font-size:22px;
+    font-weight:bold;
+}
+
+.calendar{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:8px;
+}
+
+.day-name{
+    text-align:center;
+    font-weight:bold;
+    padding:10px;
+    background:#e7e3ff;
+    border-radius:8px;
+    color:#6256a8;
+}
+
+.day{
+    min-height:75px;
+    background:#fafafa;
+    border:1px solid #ddd;
+    border-radius:10px;
+    padding:8px;
+}
+
+.day-number{
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.day.today{
+    border:3px solid #e77bb8;
+    background:#fff0f7;
+}
+
+.day.completed{
+    background:#eee9ff;
+}
+
+.day-dot{
+    width:8px;
+    height:8px;
+    background:#e77bb8;
+    border-radius:50%;
+    display:inline-block;
+}
+
+/* HABIT TRACKER */
+.table-wrapper{
+    overflow-x:auto;
+}
+
+.habit-table{
+    border-collapse:collapse;
+    min-width:1150px;
+    width:100%;
+}
+
+.habit-table th,
+.habit-table td{
+    border:1px solid #ddd;
+    text-align:center;
+    padding:7px;
+}
+
+.habit-table th{
+    background:#e7e3ff;
+    color:#574d9c;
+    position:sticky;
+    top:0;
+    z-index:2;
+}
+
+.habit-name{
+    text-align:left !important;
+    min-width:220px;
+    font-weight:bold;
+    background:#faf9ff;
+    position:sticky;
+    left:0;
+    z-index:1;
+}
+
+.week1{
+    background:#b9d5ff !important;
+}
+
+.week2{
+    background:#f6b4d5 !important;
+}
+
+.week3{
+    background:#cbb7f5 !important;
+}
+
+.week4{
+    background:#ffc88a !important;
+}
+
+.week5{
+    background:#ffe58f !important;
+}
+
+input[type="checkbox"]{
+    appearance:none;
+    width:20px;
+    height:20px;
+    border:2px solid #aaa;
+    border-radius:5px;
+    cursor:pointer;
+    background:white;
+    position:relative;
+}
+
+input[type="checkbox"]:checked{
+    background:#6c8cff;
+    border-color:#6c8cff;
+}
+
+input[type="checkbox"]:checked::after{
+    content:"✓";
+    color:white;
+    font-size:14px;
+    position:absolute;
+    left:3px;
+    top:-1px;
+    font-weight:bold;
+}
+
+/* WEEKLY AREA */
+.week-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:15px;
+}
+
+.week-card{
+    border-radius:15px;
+    overflow:hidden;
+    border:1px solid #ddd;
+    background:#fff;
+}
+
+.week-title{
+    padding:15px;
+    font-size:18px;
+    font-weight:bold;
+    text-align:center;
+}
+
+.week-content{
+    padding:15px;
+}
+
+.week-content label{
+    display:block;
+    padding:8px 0;
+    border-bottom:1px dashed #ddd;
+}
+
+.week-content input{
+    margin-right:8px;
+}
+
+/* DASHBOARD */
+.dashboard{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.chart-card{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 4px 15px rgba(0,0,0,.07);
+}
+
+.circle{
+    width:170px;
+    height:170px;
+    border-radius:50%;
+    background:conic-gradient(#e77bb8 0deg,#e77bb8 0deg,#eee 0deg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:15px auto;
+    position:relative;
+}
+
+.circle::before{
+    content:"";
+    position:absolute;
+    width:125px;
+    height:125px;
+    background:white;
+    border-radius:50%;
+}
+
+.circle span{
+    position:relative;
+    font-size:28px;
+    font-weight:bold;
+    color:#555;
+}
+
+.bar-list{
+    margin-top:20px;
+}
+
+.bar-row{
+    margin:13px 0;
+}
+
+.bar-label{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:5px;
+    font-size:14px;
+}
+
+.bar{
+    height:12px;
+    background:#eee;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.bar div{
+    height:100%;
+    width:0%;
+    background:#6c8cff;
+    border-radius:20px;
+}
+
+/* ADD HABIT */
+.add-area{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.add-area input{
+    flex:1;
+    padding:13px;
+    border:1px solid #ccc;
+    border-radius:10px;
+    font-size:16px;
+}
+
+/* TOP HABITS */
+.top-list{
+    list-style:none;
+}
+
+.top-list li{
+    padding:12px;
+    border-bottom:1px solid #eee;
+    display:flex;
+    justify-content:space-between;
+}
+
+.rank{
+    font-weight:bold;
+    color:#e77bb8;
+}
+
+/* NOTES */
+.notes{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.note{
+    padding:18px;
+    border-radius:15px;
+    min-height:130px;
+}
+
+.note:nth-child(1){
+    background:#e4edff;
+}
+
+.note:nth-child(2){
+    background:#ffe5f0;
+}
+
+.note:nth-child(3){
+    background:#eee5ff;
+}
+
+.note h3{
+    margin-bottom:10px;
+}
+
+/* MOBILE */
+@media(max-width:900px){
+
+    body{
+        padding:10px;
+    }
+
+    .summary{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .dashboard{
+        grid-template-columns:1fr;
+    }
+
+    .week-grid{
+        grid-template-columns:1fr;
+    }
+
+    .notes{
+        grid-template-columns:1fr;
+    }
+
+    .header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+}
+
+@media(max-width:550px){
+
+    .summary{
+        grid-template-columns:1fr;
+    }
+
+    .header h1{
+        font-size:24px;
+    }
+
+    .calendar{
+        gap:3px;
+    }
+
+    .day{
+        min-height:55px;
+        font-size:12px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+    <div>
+        <h1>📚 Study Habit Tracker</h1>
+        <p>Track your daily habits and improve every day</p>
+    </div>
+
+    <div class="month-box" id="monthName">
+        Month
+    </div>
+</div>
+
+
+<!-- SUMMARY -->
+<div class="summary">
+
+    <div class="card">
+        <h3>DAILY PROGRESS</h3>
+        <div class="big-number" id="dailyProgress">0%</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="dailyBar"></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>COMPLETED HABITS</h3>
+        <div class="big-number" id="completedCount">0</div>
+        <p>completed</p>
+    </div>
+
+    <div class="card">
+        <h3>TOTAL HABITS</h3>
+        <div class="big-number" id="totalCount">0</div>
+        <p>this month</p>
+    </div>
+
+    <div class="card">
+        <h3>STREAK 🔥</h3>
+        <div class="big-number" id="streak">0 days</div>
+        <p>keep going!</p>
+    </div>
+
+</div>
+
+
+<!-- CALENDAR -->
+<div class="section">
+
+    <div class="calendar-head">
+
+        <button onclick="changeMonth(-1)">‹ Previous</button>
+
+        <div class="calendar-title" id="calendarTitle"></div>
+
+        <button onclick="changeMonth(1)">Next ›</button>
+
+    </div>
+
+    <div class="calendar" id="calendar"></div>
+
+</div>
+
+
+<!-- ADD HABIT -->
+<div class="section">
+
+    <div class="section-title">
+        ✏️ Daily Habits
+    </div>
+
+    <div class="add-area">
+
+        <input
+            type="text"
+            id="habitInput"
+            placeholder="Enter a new habit..."
+        >
+
+        <button class="add-btn" onclick="addHabit()">
+            + Add Habit
+        </button>
+
+    </div>
+
+
+    <!-- EXCEL STYLE TRACKER -->
+    <div class="table-wrapper">
+
+        <table class="habit-table">
+
+            <thead>
+
+                <tr>
+
+                    <th class="habit-name">
+                        HABIT
+                    </th>
+
+                    <th colspan="7" class="week1">
+                        WEEK 1
+                    </th>
+
+                    <th colspan="7" class="week2">
+                        WEEK 2
+                    </th>
+
+                    <th colspan="7" class="week3">
+                        WEEK 3
+                    </th>
+
+                    <th colspan="7" class="week4">
+                        WEEK 4
+                    </th>
+
+                    <th colspan="3" class="week5">
+                        WEEK 5
+                    </th>
+
+                </tr>
+
+                <tr id="dateHeader">
+
+                </tr>
+
+            </thead>
+
+            <tbody id="habitBody">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<!-- WEEKLY HABITS -->
+<div class="section">
+
+    <div class="section-title">
+        📅 Weekly Habits
+    </div>
+
+    <div class="week-grid">
+
+        <div class="week-card">
+
+            <div class="week-title week1">
+                WEEK 1
+            </div>
+
+            <div class="week-content">
+
+                <label>
+                    <input type="checkbox" class="weekCheck">
+                    Review class notes
+                </label>
+
+                <label>
+                    <input type="checkbox" class="weekCheck">
+                    Complete assignments
+                </label>
+
+                <label>
+                    <input type="checkbox" class="weekCheck">
+                    Practice coding
+                </label>
+
+                <label>
+                    <input type="checkbox" class="weekCheck">
+                    Read 10 pages
+                </label>
+
+                <label>
+                    <input type="checkbox" class="weekCheck">
+                    Exercise
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <div class="week-card">
+
+            <div class="week-title week2">
+                WEEK 2
+            </div>
+
+            <div class="week-content">
+
+                <label>
+                    <input type="checkbox" class="weekCheck">
+                    Review weekly work
+                </label>
+
+                <label>
+                    <input type="checkbox" class="weekCheck">
+                    Learn new topic
+                </label>
+
+                <label>
+                    <input type="checkbox" class="weekCheck">
+                    Practice problems
+                </label>
+
+                <label>
+                    <input type="checkbox" class="weekCheck">
+                    Revise notes
+                </label>
+
+                <label>
+                    <input type="checkbox" class="weekCheck">
+                    Complete projects
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <div class="week-card">
+
+            <div class="week-title week3">
+                WEEK 3
+            </div>
+
+            <div class="week-content">
+
+                <label>
+                    <input type="checkbox" class="weekCheck">
+                    Learn advanced topic
+                </label>
+
+                <label>
+                    <input type="checkbox" class="weekCheck">
+                    Practice coding
+                </label>
+
+                <label>
+                    <input type="checkbox" class="weekCheck">
+                    Review previous topics
+                </label>
+
+                <label>
+                    <input type="checkbox" class="weekCheck">
+                    Watch educational video
+                </label>
+
+                <label>
+                    <input type="checkbox" class="weekCheck">
+                    Take test
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <div class="week-card">
+
+            <div class="week-title week4">
+                WEEK 4
+            </div>
+
+            <div class="week-content">
+
+                <label>
+                    <input type="checkbox" class="weekCheck">
+                    Monthly revision
+                </label>
+
+                <label>
+                    <input type="checkbox" class="weekCheck">
+                    Complete pending work
+                </label>
+
+                <label>
+                    <input type="checkbox" class="weekCheck">
+                    Practice important questions
+                </label>
+
+                <label>
+                    <input type="checkbox" class="weekCheck">
+                    Prepare for exam
+                </label>
+
+                <label>
+                    <input type="checkbox" class="weekCheck">
+                    Review progress
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <div class="week-card">
+
+            <div class="week-title week5">
+                WEEK 5
+            </div>
+
+            <div class="week-content">
+
+                <label>
+                    <input type="checkbox" class="weekCheck">
+                    Final revision
+                </label>
+
+                <label>
+                    <input type="checkbox" class="weekCheck">
+                    Complete goals
+                </label>
+
+                <label>
+                    <input type="checkbox" class="weekCheck">
+                    Plan next month
+                </label>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- PROGRESS DASHBOARD -->
+<div class="dashboard">
+
+    <div class="chart-card">
+
+        <h2>📊 Weekly Progress</h2>
+
+        <div class="circle" id="weeklyCircle">
+            <span id="weeklyPercent">0%</span>
+        </div>
+
+        <div class="bar-list">
+
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>Week 1</span>
+                    <span id="w1">0%</span>
+                </div>
+
+                <div class="bar">
+                    <div id="w1bar"></div>
+                </div>
+            </div>
+
+
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>Week 2</span>
+                    <span id="w2">0%</span>
+                </div>
+
+                <div class="bar">
+                    <div id="w2bar"></div>
+                </div>
+            </div>
+
+
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>Week 3</span>
+                    <span id="w3">0%</span>
+                </div>
+
+                <div class="bar">
+                    <div id="w3bar"></div>
+                </div>
+            </div>
+
+
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>Week 4</span>
+                    <span id="w4">0%</span>
+                </div>
+
+                <div class="bar">
+                    <div id="w4bar"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="chart-card">
+
+        <h2>📈 Monthly Progress</h2>
+
+        <div class="circle" id="monthlyCircle">
+            <span id="monthlyPercent">0%</span>
+        </div>
+
+        <div class="bar-list">
+
+            <div class="bar-row">
+                <div class="bar-label">
+                    <span>Completed</span>
+                    <span id="monthCompleted">0</span>
+                </div>
+
+                <div class="bar">
+                    <div id="monthBar"></div>
+                </div>
+            </div>
+
+            <div class="bar-row">
+
+                <div class="bar-label">
+                    <span>Remaining</span>
+                    <span id="remaining">0</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- TOP HABITS -->
+<div class="section">
+
+    <div class="section-title">
+        🏆 Top Habits
+    </div>
+
+    <ul class="top-list" id="topHabits">
+
+        <li>
+            <span><span class="rank">1.</span> Study for 1 hour</span>
+            <b>0%</b>
+        </li>
+
+        <li>
+            <span><span class="rank">2.</span> Review class notes</span>
+            <b>0%</b>
+        </li>
+
+        <li>
+            <span><span class="rank">3.</span> Practice coding</span>
+            <b>0%</b>
+        </li>
+
+        <li>
+            <span><span class="rank">4.</span> Read 10 pages</span>
+            <b>0%</b>
+        </li>
+
+        <li>
+            <span><span class="rank">5.</span> Exercise for 30 minutes</span>
+            <b>0%</b>
+        </li>
+
+    </ul>
+
+</div>
+
+
+<!-- NOTES -->
+<div class="section">
+
+    <div class="section-title">
+        📝 Monthly Reflection
+    </div>
+
+    <div class="notes">
+
+        <div class="note">
+            <h3>💡 What I did well</h3>
+            <p>Write your achievements here...</p>
+        </div>
+
+        <div class="note">
+            <h3>🔧 What can be improved?</h3>
+            <p>Write what you want to improve...</p>
+        </div>
+
+        <div class="note">
+            <h3>⭐ Next Month Goal</h3>
+            <p>Write your next goal here...</p>
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* ==============================
+   HABITS
+============================== */
+
+let habits = JSON.parse(
+    localStorage.getItem("studyHabits")
+) || [
+
+    "Review class notes",
+    "Complete assignments",
+    "Organize study desk",
+    "Read 10 pages of a book",
+    "Exercise for 30 minutes",
+    "Practice coding",
+    "Watch an educational video",
+    "Practice English",
+    "Revise yesterday's topic",
+    "Complete pending work"
+
+];
+
+
+let checked = JSON.parse(
+    localStorage.getItem("habitChecked")
+) || {};
+
+
+let currentDate = new Date();
+
+
+/* ==============================
+   SAVE
+============================== */
+
+function saveData(){
+
+    localStorage.setItem(
+        "studyHabits",
+        JSON.stringify(habits)
+    );
+
+    localStorage.setItem(
+        "habitChecked",
+        JSON.stringify(checked)
+    );
+
+}
+
+
+/* ==============================
+   MONTH NAME
+============================== */
+
+function updateMonthName(){
+
+    let month =
+        currentDate.toLocaleString(
+            "default",
+            {month:"long"}
+        );
+
+    let year =
+        currentDate.getFullYear();
+
+    document.getElementById(
+        "monthName"
+    ).innerText =
+        month + " " + year;
+
+    document.getElementById(
+        "calendarTitle"
+    ).innerText =
+        month + " " + year;
+
+}
+
+
+/* ==============================
+   CALENDAR
+============================== */
+
+function createCalendar(){
+
+    let calendar =
+        document.getElementById("calendar");
+
+    calendar.innerHTML = "";
+
+    let year =
+        currentDate.getFullYear();
+
+    let month =
+        currentDate.getMonth();
+
+    let firstDay =
+        new Date(year,month,1).getDay();
+
+    let totalDays =
+        new Date(year,month+1,0).getDate();
+
+
+    let names =
+        ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+
+    names.forEach(function(name){
+
+        let div =
+            document.createElement("div");
+
+        div.className =
+            "day-name";
+
+        div.innerText =
+            name;
+
+        calendar.appendChild(div);
+
+    });
+
+
+    for(let i=0;i<firstDay;i++){
+
+        let empty =
+            document.createElement("div");
+
+        calendar.appendChild(empty);
+
+    }
+
+
+    for(let day=1;day<=totalDays;day++){
+
+        let div =
+            document.createElement("div");
+
+        div.className = "day";
+
+        let today =
+            new Date();
+
+        if(
+            day === today.getDate() &&
+            month === today.getMonth() &&
+            year === today.getFullYear()
+        ){
+
+            div.classList.add("today");
+
+        }
+
+
+        let number =
+            document.createElement("div");
+
+        number.className =
+            "day-number";
+
+        number.innerText =
+            day;
+
+
+        div.appendChild(number);
+
+
+        let completed = 0;
+
+        habits.forEach(function(habit,index){
+
+            let key =
+                getKey(index,day);
+
+            if(checked[key]){
+                completed++;
+            }
+
+        });
+
+
+        if(completed > 0){
+
+            div.classList.add("completed");
+
+            let dot =
+                document.createElement("span");
+
+            dot.className =
+                "day-dot";
+
+            div.appendChild(dot);
+
+        }
+
+
+        calendar.appendChild(div);
+
+    }
+
+}
+
+
+/* ==============================
+   KEY
+============================== */
+
+function getKey(habitIndex,day){
+
+    return (
+        currentDate.getFullYear()
+        + "-"
+        + currentDate.getMonth()
+        + "-"
+        + day
+        + "-"
+        + habitIndex
+    );
+
+}
+
+
+/* ==============================
+   HABIT TABLE
+============================== */
+
+function createHabitTable(){
+
+    let header =
+        document.getElementById("dateHeader");
+
+    let body =
+        document.getElementById("habitBody");
+
+
+    header.innerHTML =
+        "<th class='habit-name'>DATE</th>";
+
+    body.innerHTML = "";
+
+
+    let days =
+        new Date(
+            currentDate.getFullYear(),
+            currentDate.getMonth()+1,
+            0
+        ).getDate();
+
+
+    for(let d=1;d<=days;d++){
+
+        let th =
+            document.createElement("th");
+
+        th.innerText =
+            d;
+
+        if(d<=7)
+            th.className="week1";
+
+        else if(d<=14)
+            th.className="week2";
+
+        else if(d<=21)
+            th.className="week3";
+
+        else if(d<=28)
+            th.className="week4";
+
+        else
+            th.className="week5";
+
+        header.appendChild(th);
+
+    }
+
+
+    habits.forEach(function(habit,index){
+
+        let tr =
+            document.createElement("tr");
+
+
+        let name =
+            document.createElement("td");
+
+        name.className =
+            "habit-name";
+
+        name.innerText =
+            (index+1) + ". " + habit;
+
+        tr.appendChild(name);
+
+
+        for(let day=1;day<=days;day++){
+
+            let td =
+                document.createElement("td");
+
+            let checkbox =
+                document.createElement("input");
+
+            checkbox.type =
+                "checkbox";
+
+
+            let key =
+                getKey(index,day);
+
+
+            checkbox.checked =
+                checked[key] || false;
+
+
+            checkbox.onchange =
+                function(){
+
+                    checked[key] =
+                        checkbox.checked;
+
+                    saveData();
+
+                    updateEverything();
+
+                };
+
+
+            td.appendChild(checkbox);
+
+            tr.appendChild(td);
+
+        }
+
+
+        body.appendChild(tr);
+
+    });
+
+}
+
+
+/* ==============================
+   ADD HABIT
+============================== */
+
+function addHabit(){
+
+    let input =
+        document.getElementById(
+            "habitInput"
+        );
+
+    let value =
+        input.value.trim();
+
+
+    if(value === ""){
+
+        alert("Please enter a habit.");
+
+        return;
+
+    }
+
+
+    habits.push(value);
+
+    input.value = "";
+
+    saveData();
+
+    updateEverything();
+
+}
+
+
+/* ==============================
+   CHANGE MONTH
+============================== */
+
+function changeMonth(amount){
+
+    currentDate.setMonth(
+        currentDate.getMonth()+amount
+    );
+
+    updateEverything();
+
+}
+
+
+/* ==============================
+   PROGRESS
+============================== */
+
+function calculateProgress(){
+
+    let days =
+        new Date(
+            currentDate.getFullYear(),
+            currentDate.getMonth()+1,
+            0
+        ).getDate();
+
+
+    let total =
+        habits.length * days;
+
+
+    let completed = 0;
+
+
+    habits.forEach(function(habit,index){
+
+        for(
+            let day=1;
+            day<=days;
+            day++
+        ){
+
+            let key =
+                getKey(index,day);
+
+            if(checked[key]){
+                completed++;
+            }
+
+        }
+
+    });
+
+
+    let percent =
+        total === 0
+        ? 0
+        : Math.round(
+            (completed/total)*100
+        );
+
+
+    document.getElementById(
+        "completedCount"
+    ).innerText =
+        completed;
+
+
+    document.getElementById(
+        "totalCount"
+    ).innerText =
+        total;
+
+
+    document.getElementById(
+        "dailyProgress"
+    ).innerText =
+        percent + "%";
+
+
+    document.getElementById(
+        "dailyBar"
+    ).style.width =
+        percent + "%";
+
+
+    document.getElementById(
+        "monthCompleted"
+    ).innerText =
+        completed;
+
+
+    document.getElementById(
+        "remaining"
+    ).innerText =
+        total-completed;
+
+
+    document.getElementById(
+        "monthBar"
+    ).style.width =
+        percent + "%";
+
+
+    document.getElementById(
+        "monthlyPercent"
+    ).innerText =
+        percent + "%";
+
+
+    document.getElementById(
+        "monthlyCircle"
+    ).style.background =
+        `conic-gradient(
+            #e77bb8 ${percent*3.6}deg,
+            #eee ${percent*3.6}deg
+        )`;
+
+
+    document.getElementById(
+        "weeklyPercent"
+    ).innerText =
+        percent + "%";
+
+
+    document.getElementById(
+        "weeklyCircle"
+    ).style.background =
+        `conic-gradient(
+            #6c8cff ${percent*3.6}deg,
+            #eee ${percent*3.6}deg
+        )`;
+
+}
+
+
+/* ==============================
+   WEEKLY PROGRESS
+============================== */
+
+function weeklyProgress(){
+
+    let days =
+        new Date(
+            currentDate.getFullYear(),
+            currentDate.getMonth()+1,
+            0
+        ).getDate();
+
+
+    for(let week=1;week<=4;week++){
+
+        let start =
+            (week-1)*7+1;
+
+        let end =
+            Math.min(week*7,days);
+
+
+        let total = 0;
+
+        let completed = 0;
+
+
+        habits.forEach(function(habit,index){
+
+            for(
+                let day=start;
+                day<=end;
+                day++
+            ){
+
+                total++;
+
+                let key =
+                    getKey(index,day);
+
+                if(checked[key]){
+                    completed++;
+                }
+
+            }
+
+        });
+
+
+        let percent =
+            total===0
+            ?0
+            :Math.round(
+                completed/total*100
+            );
+
+
+        document.getElementById(
+            "w"+week
+        ).innerText =
+            percent+"%";
+
+
+        document.getElementById(
+            "w"+week+"bar"
+        ).style.width =
+            percent+"%";
+
+    }
+
+}
+
+
+/* ==============================
+   EVERYTHING
+============================== */
+
+function updateEverything(){
+
+    updateMonthName();
+
+    createCalendar();
+
+    createHabitTable();
+
+    calculateProgress();
+
+    weeklyProgress();
+
+}
+
+
+/* ==============================
+   WEEK CHECKBOXES
+============================== */
+
+document
+.querySelectorAll(".weekCheck")
+.forEach(function(box){
+
+    box.addEventListener(
+        "change",
+        function(){
+
+            calculateProgress();
+
+        }
+    );
+
+});
+
+
+/* START */
+
+updateEverything();
+
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./service-worker.js");
+}
+</script>
+
+</body>
+
+</html>
+
