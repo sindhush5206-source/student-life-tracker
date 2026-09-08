@@ -392,6 +392,98 @@ input[type="checkbox"]:checked::after{
     font-size:16px;
 }
 
+
+/* HABIT CONTROLS */
+.habit-name{
+    vertical-align:middle;
+}
+.habit-controls{
+    float:right;
+    display:flex;
+    gap:5px;
+    margin-left:8px;
+}
+.habit-controls button{
+    border:0;
+    border-radius:7px;
+    padding:5px 8px;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:bold;
+}
+.edit-habit{
+    background:#ffe5a3;
+    color:#7a5a00;
+}
+.delete-habit{
+    background:#ffd6d6;
+    color:#a33;
+}
+
+/* USEFUL LINKS */
+.links-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:15px;
+}
+.link-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    background:#faf9ff;
+}
+.link-info{
+    min-width:0;
+}
+.link-info a{
+    color:#5d70d6;
+    font-weight:bold;
+    text-decoration:none;
+    word-break:break-all;
+}
+.link-info small{
+    display:block;
+    color:#777;
+    margin-top:4px;
+}
+.link-actions{
+    display:flex;
+    gap:6px;
+    flex-shrink:0;
+}
+.link-actions button{
+    border:0;
+    border-radius:7px;
+    padding:7px 10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+.open-link{
+    background:#dfe7ff;
+    color:#465fc1;
+}
+.edit-link{
+    background:#ffe5a3;
+    color:#7a5a00;
+}
+.delete-link{
+    background:#ffd6d6;
+    color:#a33;
+}
+
+
+/* PERFORMANCE GRAPH */
+#performanceChart{
+    width:100%;
+    height:100%;
+    display:block;
+}
+
 /* TOP HABITS */
 .top-list{
     list-style:none;
@@ -486,6 +578,54 @@ input[type="checkbox"]:checked::after{
         font-size:12px;
     }
 }
+
+/* Useful Links */
+#usefulLinks #linksContainer {
+    margin-top: 18px;
+}
+
+#usefulLinks .saved-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    border: 1px solid #e1e1e1;
+    border-radius: 10px;
+    background: #fff;
+}
+
+#usefulLinks .saved-link-info {
+    flex: 1;
+    min-width: 220px;
+}
+
+#usefulLinks .saved-link-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+#usefulLinks .saved-link-url {
+    font-size: 13px;
+    color: #777;
+    word-break: break-all;
+}
+
+#usefulLinks .saved-link-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+#usefulLinks .saved-link-actions button {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
 </style>
 </head>
 
@@ -631,195 +771,35 @@ input[type="checkbox"]:checked::after{
 </div>
 
 
-<!-- WEEKLY HABITS -->
-<div class="section">
+
+<!-- USEFUL LINKS -->
+<div class="section" id="usefulLinks">
 
     <div class="section-title">
-        📅 Weekly Habits
+        🔗 Useful Links
     </div>
 
-    <div class="week-grid">
+    <div class="add-area">
 
-        <div class="week-card">
+        <input
+            type="text"
+            id="linkName"
+            placeholder="Enter link name..."
+        >
 
-            <div class="week-title week1">
-                WEEK 1
-            </div>
+        <input
+            type="url"
+            id="linkURL"
+            placeholder="Enter website URL..."
+        >
 
-            <div class="week-content">
-
-                <label>
-                    <input type="checkbox" class="weekCheck">
-                    Review class notes
-                </label>
-
-                <label>
-                    <input type="checkbox" class="weekCheck">
-                    Complete assignments
-                </label>
-
-                <label>
-                    <input type="checkbox" class="weekCheck">
-                    Practice coding
-                </label>
-
-                <label>
-                    <input type="checkbox" class="weekCheck">
-                    Read 10 pages
-                </label>
-
-                <label>
-                    <input type="checkbox" class="weekCheck">
-                    Exercise
-                </label>
-
-            </div>
-
-        </div>
-
-
-        <div class="week-card">
-
-            <div class="week-title week2">
-                WEEK 2
-            </div>
-
-            <div class="week-content">
-
-                <label>
-                    <input type="checkbox" class="weekCheck">
-                    Review weekly work
-                </label>
-
-                <label>
-                    <input type="checkbox" class="weekCheck">
-                    Learn new topic
-                </label>
-
-                <label>
-                    <input type="checkbox" class="weekCheck">
-                    Practice problems
-                </label>
-
-                <label>
-                    <input type="checkbox" class="weekCheck">
-                    Revise notes
-                </label>
-
-                <label>
-                    <input type="checkbox" class="weekCheck">
-                    Complete projects
-                </label>
-
-            </div>
-
-        </div>
-
-
-        <div class="week-card">
-
-            <div class="week-title week3">
-                WEEK 3
-            </div>
-
-            <div class="week-content">
-
-                <label>
-                    <input type="checkbox" class="weekCheck">
-                    Learn advanced topic
-                </label>
-
-                <label>
-                    <input type="checkbox" class="weekCheck">
-                    Practice coding
-                </label>
-
-                <label>
-                    <input type="checkbox" class="weekCheck">
-                    Review previous topics
-                </label>
-
-                <label>
-                    <input type="checkbox" class="weekCheck">
-                    Watch educational video
-                </label>
-
-                <label>
-                    <input type="checkbox" class="weekCheck">
-                    Take test
-                </label>
-
-            </div>
-
-        </div>
-
-
-        <div class="week-card">
-
-            <div class="week-title week4">
-                WEEK 4
-            </div>
-
-            <div class="week-content">
-
-                <label>
-                    <input type="checkbox" class="weekCheck">
-                    Monthly revision
-                </label>
-
-                <label>
-                    <input type="checkbox" class="weekCheck">
-                    Complete pending work
-                </label>
-
-                <label>
-                    <input type="checkbox" class="weekCheck">
-                    Practice important questions
-                </label>
-
-                <label>
-                    <input type="checkbox" class="weekCheck">
-                    Prepare for exam
-                </label>
-
-                <label>
-                    <input type="checkbox" class="weekCheck">
-                    Review progress
-                </label>
-
-            </div>
-
-        </div>
-
-
-        <div class="week-card">
-
-            <div class="week-title week5">
-                WEEK 5
-            </div>
-
-            <div class="week-content">
-
-                <label>
-                    <input type="checkbox" class="weekCheck">
-                    Final revision
-                </label>
-
-                <label>
-                    <input type="checkbox" class="weekCheck">
-                    Complete goals
-                </label>
-
-                <label>
-                    <input type="checkbox" class="weekCheck">
-                    Plan next month
-                </label>
-
-            </div>
-
-        </div>
+        <button class="add-btn" id="addLinkBtn" onclick="addLearningLink()">
+            + Add Link
+        </button>
 
     </div>
+
+    <div id="linksContainer"></div>
 
 </div>
 
@@ -926,6 +906,14 @@ input[type="checkbox"]:checked::after{
 </div>
 
 
+
+<div class="section">
+    <div class="section-title">📈 My Performance Graph</div>
+    <div style="height:320px;">
+        <canvas id="performanceChart"></canvas>
+    </div>
+</div>
+
 <!-- TOP HABITS -->
 <div class="section">
 
@@ -965,34 +953,6 @@ input[type="checkbox"]:checked::after{
 </div>
 
 
-<!-- NOTES -->
-<div class="section">
-
-    <div class="section-title">
-        📝 Monthly Reflection
-    </div>
-
-    <div class="notes">
-
-        <div class="note">
-            <h3>💡 What I did well</h3>
-            <p>Write your achievements here...</p>
-        </div>
-
-        <div class="note">
-            <h3>🔧 What can be improved?</h3>
-            <p>Write what you want to improve...</p>
-        </div>
-
-        <div class="note">
-            <h3>⭐ Next Month Goal</h3>
-            <p>Write your next goal here...</p>
-        </div>
-
-    </div>
-
-</div>
-
 </div>
 
 
@@ -1002,22 +962,7 @@ input[type="checkbox"]:checked::after{
    HABITS
 ============================== */
 
-let habits = JSON.parse(
-    localStorage.getItem("studyHabits")
-) || [
-
-    "Review class notes",
-    "Complete assignments",
-    "Organize study desk",
-    "Read 10 pages of a book",
-    "Exercise for 30 minutes",
-    "Practice coding",
-    "Watch an educational video",
-    "Practice English",
-    "Revise yesterday's topic",
-    "Complete pending work"
-
-];
+let habits = JSON.parse(localStorage.getItem("studyHabits")) || [];
 
 
 let checked = JSON.parse(
@@ -1285,8 +1230,12 @@ function createHabitTable(){
         name.className =
             "habit-name";
 
-        name.innerText =
-            (index+1) + ". " + habit;
+        name.innerHTML =
+            (index+1) + ". " + habit +
+            '<span class="habit-controls">' +
+            '<button class="edit-habit" onclick="editHabit(' + index + ')">Edit</button>' +
+            '<button class="delete-habit" onclick="deleteHabit(' + index + ')">Delete</button>' +
+            '</span>';
 
         tr.appendChild(name);
 
@@ -1339,39 +1288,187 @@ function createHabitTable(){
 
 
 /* ==============================
-   ADD HABIT
+   ADD / EDIT / DELETE HABIT
 ============================== */
 
 function addHabit(){
 
     let input =
-        document.getElementById(
-            "habitInput"
-        );
+        document.getElementById("habitInput");
 
     let value =
         input.value.trim();
 
-
     if(value === ""){
-
         alert("Please enter a habit.");
-
         return;
-
     }
-
 
     habits.push(value);
 
     input.value = "";
 
     saveData();
-
     updateEverything();
-
 }
 
+function editHabit(index){
+
+    let newValue =
+        prompt("Update your habit:", habits[index]);
+
+    if(newValue === null)
+        return;
+
+    newValue = newValue.trim();
+
+    if(newValue === ""){
+        alert("Habit cannot be empty.");
+        return;
+    }
+
+    habits[index] = newValue;
+
+    saveData();
+    updateEverything();
+}
+
+function deleteHabit(index){
+
+    if(!confirm("Delete this habit?"))
+        return;
+
+    habits.splice(index, 1);
+
+    saveData();
+    updateEverything();
+}
+
+
+
+/* ==============================
+   USEFUL LINKS
+============================== */
+
+let usefulLinks =
+    JSON.parse(localStorage.getItem("usefulLinks")) || [];
+
+function saveLinks(){
+    localStorage.setItem(
+        "usefulLinks",
+        JSON.stringify(usefulLinks)
+    );
+}
+
+function addLink(){
+
+    let name =
+        document.getElementById("linkName").value.trim();
+
+    let url =
+        document.getElementById("linkURL").value.trim();
+
+    if(name === "" || url === ""){
+        alert("Please enter the name and link.");
+        return;
+    }
+
+    if(!/^https?:\/\//i.test(url)){
+        url = "https://" + url;
+    }
+
+    usefulLinks.push({
+        name:name,
+        url:url
+    });
+
+    document.getElementById("linkName").value = "";
+    document.getElementById("linkURL").value = "";
+
+    saveLinks();
+    displayLinks();
+}
+
+function editLink(index){
+
+    let newName =
+        prompt("Update link name:", usefulLinks[index].name);
+
+    if(newName === null)
+        return;
+
+    let newURL =
+        prompt("Update learning link:", usefulLinks[index].url);
+
+    if(newURL === null)
+        return;
+
+    newName = newName.trim();
+    newURL = newURL.trim();
+
+    if(newName === "" || newURL === ""){
+        alert("Name and link cannot be empty.");
+        return;
+    }
+
+    if(!/^https?:\/\//i.test(newURL)){
+        newURL = "https://" + newURL;
+    }
+
+    usefulLinks[index] = {
+        name:newName,
+        url:newURL
+    };
+
+    saveLinks();
+    displayLinks();
+}
+
+function deleteLink(index){
+
+    if(!confirm("Delete this link?"))
+        return;
+
+    usefulLinks.splice(index,1);
+
+    saveLinks();
+    displayLinks();
+}
+
+function displayLinks(){
+
+    let list =
+        document.getElementById("linksList");
+
+    list.innerHTML = "";
+
+    usefulLinks.forEach(function(link,index){
+
+        let item =
+            document.createElement("div");
+
+        item.className = "link-item";
+
+        item.innerHTML =
+            '<div class="link-info">' +
+            '<a href="' + link.url + '" target="_blank" rel="noopener">' +
+            link.name +
+            '</a>' +
+            '<small>' + link.url + '</small>' +
+            '</div>' +
+            '<div class="link-actions">' +
+            '<button class="open-link" onclick="window.open(' +
+            JSON.stringify(link.url) +
+            ', \'_blank\')">Open</button>' +
+            '<button class="edit-link" onclick="editLink(' +
+            index + ')">Edit</button>' +
+            '<button class="delete-link" onclick="deleteLink(' +
+            index + ')">Delete</button>' +
+            '</div>';
+
+        list.appendChild(item);
+    });
+}
 
 /* ==============================
    CHANGE MONTH
@@ -1512,10 +1609,101 @@ function calculateProgress(){
 
 
 /* ==============================
-   WEEKLY PROGRESS
+   WEEKLY PERFORMANCE
 ============================== */
 
 function weeklyProgress(){
+
+    let boxes =
+        document.querySelectorAll(".weekCheck");
+
+    let weekTotals = [0,0,0,0,0];
+    let weekCompleted = [0,0,0,0,0];
+
+    boxes.forEach(function(box,index){
+
+        let week =
+            Math.floor(index / 5);
+
+        if(week > 4) week = 4;
+
+        weekTotals[week]++;
+
+        if(box.checked){
+            weekCompleted[week]++;
+        }
+    });
+
+    let total = 0;
+    let completed = 0;
+
+    for(let week=0; week<5; week++){
+
+        total += weekTotals[week];
+        completed += weekCompleted[week];
+
+        let percent =
+            weekTotals[week] === 0
+            ? 0
+            : Math.round(
+                weekCompleted[week] /
+                weekTotals[week] * 100
+            );
+
+        let label =
+            document.getElementById("w"+(week+1));
+
+        let bar =
+            document.getElementById("w"+(week+1)+"bar");
+
+        if(label)
+            label.innerText = percent + "%";
+
+        if(bar)
+            bar.style.width = percent + "%";
+    }
+
+    let overall =
+        total === 0
+        ? 0
+        : Math.round(completed / total * 100);
+
+    document.getElementById("weeklyPercent").innerText =
+        overall + "%";
+
+    document.getElementById("weeklyCircle").style.background =
+        `conic-gradient(
+            #6c8cff ${overall*3.6}deg,
+            #eee ${overall*3.6}deg
+        )`;
+}
+
+
+
+/* ==============================
+   MY PERFORMANCE GRAPH
+============================== */
+
+function drawPerformanceGraph(){
+
+    let canvas = document.getElementById("performanceChart");
+
+    if(!canvas) return;
+
+    let ctx = canvas.getContext("2d");
+
+    let rect = canvas.getBoundingClientRect();
+    let dpr = window.devicePixelRatio || 1;
+
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+
+    let width = rect.width;
+    let height = rect.height;
+
+    ctx.clearRect(0,0,width,height);
 
     let days =
         new Date(
@@ -1524,66 +1712,132 @@ function weeklyProgress(){
             0
         ).getDate();
 
+    let values = [];
 
-    for(let week=1;week<=4;week++){
+    for(let day=1; day<=days; day++){
 
-        let start =
-            (week-1)*7+1;
-
-        let end =
-            Math.min(week*7,days);
-
-
-        let total = 0;
-
+        let total = habits.length;
         let completed = 0;
-
 
         habits.forEach(function(habit,index){
 
-            for(
-                let day=start;
-                day<=end;
-                day++
-            ){
-
-                total++;
-
-                let key =
-                    getKey(index,day);
-
-                if(checked[key]){
-                    completed++;
-                }
-
+            if(checked[getKey(index,day)]){
+                completed++;
             }
-
         });
 
-
         let percent =
-            total===0
-            ?0
-            :Math.round(
-                completed/total*100
-            );
+            total === 0
+            ? 0
+            : Math.round(completed / total * 100);
 
-
-        document.getElementById(
-            "w"+week
-        ).innerText =
-            percent+"%";
-
-
-        document.getElementById(
-            "w"+week+"bar"
-        ).style.width =
-            percent+"%";
-
+        values.push(percent);
     }
 
-}
+    let left = 45;
+    let right = 20;
+    let top = 20;
+    let bottom = 40;
 
+    let graphWidth = width - left - right;
+    let graphHeight = height - top - bottom;
+
+    /* Background grid */
+    ctx.font = "12px Arial";
+    ctx.textAlign = "right";
+    ctx.textBaseline = "middle";
+
+    for(let p=0; p<=100; p+=20){
+
+        let y =
+            top + graphHeight - (p/100)*graphHeight;
+
+        ctx.beginPath();
+        ctx.moveTo(left,y);
+        ctx.lineTo(width-right,y);
+        ctx.strokeStyle = "#eeeeee";
+        ctx.stroke();
+
+        ctx.fillStyle = "#777";
+        ctx.fillText(p+"%", left-8, y);
+    }
+
+    /* Line */
+    if(habits.length > 0){
+
+        ctx.beginPath();
+
+        values.forEach(function(value,index){
+
+            let x =
+                left +
+                (index/(Math.max(days-1,1))) *
+                graphWidth;
+
+            let y =
+                top +
+                graphHeight -
+                (value/100)*graphHeight;
+
+            if(index === 0)
+                ctx.moveTo(x,y);
+            else
+                ctx.lineTo(x,y);
+        });
+
+        ctx.strokeStyle = "#6c8cff";
+        ctx.lineWidth = 3;
+        ctx.stroke();
+
+        /* Points */
+        values.forEach(function(value,index){
+
+            let x =
+                left +
+                (index/(Math.max(days-1,1))) *
+                graphWidth;
+
+            let y =
+                top +
+                graphHeight -
+                (value/100)*graphHeight;
+
+            ctx.beginPath();
+            ctx.arc(x,y,4,0,Math.PI*2);
+            ctx.fillStyle = "#e77bb8";
+            ctx.fill();
+        });
+    }
+
+    /* X axis labels */
+    ctx.fillStyle = "#777";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "top";
+
+    let step =
+        days <= 10
+        ? 1
+        : days <= 20
+        ? 2
+        : 5;
+
+    for(let day=1; day<=days; day+=step){
+
+        let x =
+            left +
+            ((day-1)/(Math.max(days-1,1))) *
+            graphWidth;
+
+        ctx.fillText(day, x, top+graphHeight+10);
+    }
+
+    ctx.textAlign = "center";
+    ctx.fillText(
+        "Day of month",
+        left + graphWidth/2,
+        height-12
+    );
+}
 
 /* ==============================
    EVERYTHING
@@ -1600,50 +1854,136 @@ function updateEverything(){
     calculateProgress();
 
     weeklyProgress();
+    drawPerformanceGraph();
 
 }
 
 
-/* ==============================
-   WEEK CHECKBOXES
-============================== */
-
-document
-.querySelectorAll(".weekCheck")
-.forEach(function(box){
-
-    box.addEventListener(
-        "change",
-        function(){
-
-            calculateProgress();
-
-        }
-    );
-
-});
-
+window.addEventListener("resize", drawPerformanceGraph);
 
 /* START */
 
 updateEverything();
+    displayLinks();
 
 </script>
 <script>
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("./service-worker.js")
-    .then(registration => {
-      registration.update();
-
-      setInterval(() => {
-        registration.update();
-      }, 60000);
-    });
-
-  navigator.serviceWorker.addEventListener("controllerchange", () => {
-    window.location.reload();
-  });
+    navigator.serviceWorker.register("./service-worker.js");
 }
+</script>
+
+
+<script>
+let learningLinks = JSON.parse(localStorage.getItem("learningLinks") || "[]");
+let editingLinkIndex = -1;
+
+function saveLearningLinks() {
+    localStorage.setItem("learningLinks", JSON.stringify(learningLinks));
+}
+
+function normalizeLearningUrl(url) {
+    url = url.trim();
+    if (!/^https?:\/\//i.test(url)) url = "https://" + url;
+    return url;
+}
+
+function addLearningLink() {
+    const nameEl = document.getElementById("linkName");
+    const urlEl = document.getElementById("linkURL");
+    const name = nameEl.value.trim();
+    const url = normalizeLearningUrl(urlEl.value);
+
+    if (!name || !urlEl.value.trim()) {
+        alert("Please enter both the link name and URL.");
+        return;
+    }
+
+    if (editingLinkIndex >= 0) {
+        learningLinks[editingLinkIndex] = { name, url };
+        editingLinkIndex = -1;
+        document.getElementById("addLinkBtn").textContent = "Add Link";
+    } else {
+        learningLinks.push({ name, url });
+    }
+
+    saveLearningLinks();
+    nameEl.value = "";
+    urlEl.value = "";
+    renderLearningLinks();
+}
+
+function editLearningLink(index) {
+    const item = learningLinks[index];
+    document.getElementById("linkName").value = item.name;
+    document.getElementById("linkURL").value = item.url;
+    editingLinkIndex = index;
+    document.getElementById("addLinkBtn").textContent = "Update Link";
+    document.getElementById("linkName").focus();
+}
+
+function deleteLearningLink(index) {
+    if (confirm("Delete this link?")) {
+        learningLinks.splice(index, 1);
+        saveLearningLinks();
+        if (editingLinkIndex === index) {
+            editingLinkIndex = -1;
+            document.getElementById("addLinkBtn").textContent = "Add Link";
+        }
+        renderLearningLinks();
+    }
+}
+
+function renderLearningLinks() {
+    const container = document.getElementById("linksContainer");
+    if (!container) return;
+
+    if (!usefulLinks || usefulLinks.length === 0) {
+        container.innerHTML = '<div class="saved-link"><div class="saved-link-info">No links added yet.</div></div>';
+        return;
+    }
+
+    container.innerHTML = usefulLinks.map((link, index) => `
+        <div class="saved-link">
+            <div class="saved-link-info">
+                <div class="saved-link-name">${escapeHtml(link.name)}</div>
+                <div class="saved-link-url">${escapeHtml(link.url)}</div>
+            </div>
+            <div class="saved-link-actions">
+                <button type="button" onclick="window.open('${link.url.replace(/'/g, "\\'")}', '_blank')">Open</button>
+                <button type="button" onclick="editLearningLink(${index})">Edit</button>
+                <button type="button" onclick="deleteLearningLink(${index})">Delete</button>
+            </div>
+        </div>
+    `).join("");
+}
+
+function escapeHtml(value) {
+    return value.replace(/[&<>"']/g, ch => ({
+        "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#039;"
+    }[ch]));
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    renderLearningLinks();
+
+    const urlInput = document.getElementById("linkURL");
+    if (urlInput) {
+        urlInput.addEventListener("keydown", e => {
+            if (e.key === "Enter") addLearningLink();
+        });
+    }
+
+    const nameInput = document.getElementById("linkName");
+    if (nameInput) {
+        nameInput.addEventListener("keydown", e => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                addLearningLink();
+            }
+        });
+    }
+});
 </script>
 
 </body>
